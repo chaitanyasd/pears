@@ -1,1 +1,1 @@
-# pears: A simple BitTorrent Client
+# pears :computer:: A simple BitTorrent Client

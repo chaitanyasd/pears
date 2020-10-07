@@ -1,12 +1,17 @@
 import aiohttp
-from urllib.parse import urlencode
 import logging
 import bencodepy
 import random
 import socket
 
+from urllib.parse import urlencode
+
 
 class TrackerResponse:
+    """
+    https://wiki.theory.org/BitTorrentSpecification#Tracker_Response
+    """
+
     def __init__(self, tracker_response):
         self.tracker_response = tracker_response
 
@@ -40,7 +45,7 @@ class TrackerResponse:
 
         if type(peers) == list:
             logging.info("The peers list is a list of dict (dictionary model)")
-            raise NotImplementedError("The peers list is a list of dict")
+            raise NotImplementedError("The peers list is a list of dict (dictionary model)")
         else:
             logging.info("The peers list is string (binary model)")
             peers = [
@@ -56,6 +61,12 @@ class TrackerResponse:
     def _decode_port(self, port):
         import struct
         return struct.unpack(">H", port)[0]
+
+    def __str__(self):
+        return f"incomplete (leechers): {self.incomplete}\n" \
+               f"complete (peers): {self.complete}\n" \
+               f"interval (sec): {self.interval}\n" \
+               f"peers ip:port: {self.peers}\n"
 
 
 class Tracker:
@@ -78,7 +89,7 @@ class Tracker:
             return TrackerResponse(bencodepy.decode(tracker_response))
 
     def _calculate_peer_id(self):
-        return "-EZ9426-" + "".join([str(random.randint(0, 9) for _ in range(12))])
+        return "-EZ9426-" + "".join([str(random.randint(0, 9)) for _ in range(12)])
 
     def check_for_error(self, tracker_response):
         try:

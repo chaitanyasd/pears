@@ -1,7 +1,9 @@
 import argparse
 import bencodepy
+
 from hashlib import sha1
 from collections import namedtuple
+from tracker import Tracker
 
 """
 Represents each file within the torrent
@@ -108,4 +110,11 @@ if __name__ == "__main__":
     parser.add_argument("-f", "--file", help="Torrent's absolute file path", type=str, required=True)
     args = parser.parse_args()
 
-    print(Torrent(torrent_path=args.file))
+    t = Torrent(torrent_path=args.file)
+    # tr = Tracker(t)
+
+    # import asyncio
+    #
+    # loop = asyncio.get_event_loop()
+    # r1 = loop.run_until_complete(tr.connect())
+    # print(r1)

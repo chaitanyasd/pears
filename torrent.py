@@ -48,7 +48,7 @@ class Torrent:
 
     def _get_torrent_files(self):
         """
-        Returns the file prsent in the torrent. Currently it doesn't support torrents containing multiple files
+        Returns the file present in the torrent. Currently it doesn't support torrents containing multiple files
         """
         if self.is_multi_file:
             raise RuntimeError("Torrent contains multiple files. This is not supported currently.")

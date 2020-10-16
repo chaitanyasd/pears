@@ -1,10 +1,12 @@
-import logging
 import random
 import socket
 from urllib.parse import urlencode
+from logger import init_logger
 
 import aiohttp
 import bencodepy
+
+logging = init_logger(__name__, testing_mode=False)
 
 
 class Tracker:

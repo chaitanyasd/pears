@@ -1,23 +1,21 @@
 import argparse
-import logging
 import asyncio
 import signal
 
+from logger import init_logger
 from torrent import Torrent
 from client import TorrentClient
 
 if __name__ == "__main__":
+    logging = init_logger(__name__, testing_mode=True)
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file", help="Torrent's absolute file path", type=str, required=True)
     parser.add_argument('-v', '--verbose', action='store_true', help='enable verbose output', required=False)
     args = parser.parse_args()
 
-    if args.verbose:
-        logging.basicConfig(level=logging.INFO)
-
     loop = asyncio.get_event_loop()
     client = TorrentClient(Torrent(torrent_path=args.file))
-    task = asyncio.create_task(client.start())
+    task = asyncio.ensure_future(client.start())
 
 
     def signal_handler(*_):

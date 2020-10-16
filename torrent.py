@@ -5,11 +5,13 @@ from hashlib import sha1
 import bencodepy
 
 from tracker import Tracker
+from logger import init_logger
 
 """
 Represents each file within the torrent
 """
 TorrentFile = namedtuple('TorrentFile', ['name', 'length'])
+logging = init_logger(__name__, testing_mode=False)
 
 
 class Torrent:
@@ -41,7 +43,7 @@ class Torrent:
             if not os.path.isfile(self.torrent_path):
                 raise RuntimeError(f"Exception: \"{self.torrent_path}\" is not a file")
 
-            elif not args.file.endswith(".torrent"):
+            elif not self.torrent_path.endswith(".torrent"):
                 raise RuntimeError(f"Exception: \"{self.torrent_path}\" is not a valid torrent file")
         except RuntimeError as e:
             print(e)
@@ -103,6 +105,7 @@ class Torrent:
 
     @property
     def output_file(self):
+        logging.info("Torrent output file: {0}".format(self.meta_info[b"info"][b"name"].decode("utf-8")))
         return self.meta_info[b"info"][b"name"].decode("utf-8")
 
 

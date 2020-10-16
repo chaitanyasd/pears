@@ -1,16 +1,17 @@
 import asyncio
-import logging
 import math
 import os
 import time
 from collections import defaultdict, namedtuple
 from hashlib import sha1
 from typing import List, Union
-
+from logger import init_logger
 from protocol import PeerConnection, REQUEST_SIZE
 from tracker import Tracker
 
 MAX_PEER_CONNECTIONS = 40
+PendingRequest = namedtuple("PendingRequest", ['block', 'added'])
+logging = init_logger(__name__, testing_mode=False)
 
 
 class TorrentClient:
@@ -65,14 +66,23 @@ class TorrentClient:
         self.stop()
 
     def stop(self):
-        pass
+        self.abort = True
+        for peer in self.peers:
+            peer.stop()
+        self.piece_manager.close()
+        self.tracker.close()
 
     def _empty_queue(self):
         while not self.available_peers.empty():
             self.available_peers.get_nowait()
 
-    def _on_block_retrieved(self):
-        pass
+    def _on_block_retrieved(self, peer_id, piece_index, block_offset, data):
+        self.piece_manager.block_received(
+            peer_id=peer_id,
+            piece_index=piece_index,
+            block_offset=block_offset,
+            data=data
+        )
 
 
 class Block:
@@ -131,20 +141,17 @@ class Piece:
         return b''.join(piece_data)
 
 
-PendingRequest = namedtuple("PendingRequest", ['block', 'added'])
-
-
 class PieceManager:
     def __init__(self, torrent):
         self.torrent = torrent
         self.peers = {}
+        self.pending_blocks = []
         self.have_pieces = []
         self.ongoing_pieces = []
-        self.missing_pieces = self._init_pieces()
         self.total_pieces = len(torrent.pieces)
-        self.pending_blocks = []
-        self.max_pending_time = 300
+        self.max_pending_time = 300 * 1000  # 5 minutes
         self.fd = os.open(self.torrent.output_file, os.O_RDWR | os.O_CREAT)
+        self.missing_pieces = self._init_pieces()
 
     def _init_pieces(self) -> List[Piece]:
         pieces = []
@@ -199,10 +206,10 @@ class PieceManager:
         del self.peers[peer_id]
 
     def block_received(self, peer_id, piece_index, block_offset, data):
-        logging.debug('Received block {block_offset} for piece {piece_index} '
-                      'from peer {peer_id}: '.format(block_offset=block_offset,
-                                                     piece_index=piece_index,
-                                                     peer_id=peer_id))
+        logging.info('Received block {block_offset} for piece {piece_index} '
+                     'from peer {peer_id}: '.format(block_offset=block_offset,
+                                                    piece_index=piece_index,
+                                                    peer_id=peer_id))
 
         # remove the block from pending blocks
         for index, request in enumerate(self.pending_blocks):
@@ -224,7 +231,8 @@ class PieceManager:
 
                     total_complete = self.total_pieces - len(self.ongoing_pieces) - len(self.missing_pieces)
                     logging.info(
-                        '{complete} / {total} pieces downloaded {per:.3f} %'
+                        '...................... {complete} / {total} pieces downloaded {per:.3f}% '
+                        '......................% '
                             .format(complete=total_complete,
                                     total=self.total_pieces,
                                     per=(total_complete / self.total_pieces) * 100))

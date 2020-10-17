@@ -1,6 +1,7 @@
 import argparse
 from collections import namedtuple
 from hashlib import sha1
+import asyncio
 
 import bencodepy
 
@@ -116,8 +117,6 @@ if __name__ == "__main__":
 
     t = Torrent(torrent_path=args.file)
     tr = Tracker(t)
-
-    import asyncio
 
     loop = asyncio.get_event_loop()
     r1 = loop.run_until_complete(tr.connect())

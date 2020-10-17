@@ -12,7 +12,7 @@ logging = init_logger(__name__, testing_mode=False)
 class Tracker:
     def __init__(self, torrent):
         self.torrent = torrent
-        self.http_client = aiohttp.ClientSession()
+        self.http_client = aiohttp.ClientSession(trust_env=True)
         self.peer_id = self._calculate_peer_id()
 
     async def connect(self, first: bool = None, uploaded: int = 0, downloaded: int = 0):
@@ -29,7 +29,7 @@ class Tracker:
             return TrackerResponse(bencodepy.decode(tracker_response))
 
     def _calculate_peer_id(self):
-        return "-EZ9426-" + "".join([str(random.randint(0, 9)) for _ in range(12)])
+        return "-EZ1426-" + "".join([str(random.randint(0, 9)) for _ in range(12)])
 
     def check_for_error(self, tracker_response):
         try:

@@ -5,14 +5,6 @@ from concurrent.futures import CancelledError
 from logger import init_logger
 import bitstring
 
-# The default request size for blocks of pieces is 2^14 bytes.
-#
-# NOTE: The official specification states that 2^15 is the default request
-#       size - but in reality all implementations use 2^14. See the
-#       unofficial specification for more details on this matter.
-#
-#       https://wiki.theory.org/BitTorrentSpecification
-#
 REQUEST_SIZE = 2 ** 14
 logging = init_logger(__name__, testing_mode=False)
 
@@ -24,15 +16,19 @@ class ProtocolError(BaseException):
 class PeerConnection:
     """
     A peer connection used to download and upload pieces.
+
     The peer connection will consume one available peer from the given queue.
     Based on the peer details the PeerConnection will try to open a connection
     and perform a BitTorrent handshake.
+
     After a successful handshake, the PeerConnection will be in a *choked*
     state, not allowed to request any data from the remote peer. After sending
     an interested message the PeerConnection will be waiting to get *unchoked*.
+
     Once the remote peer unchoked us, we can start requesting pieces.
     The PeerConnection will continue to request pieces for as long as there are
     pieces left to request, or until the remote peer disconnects.
+
     If the connection with a remote peer drops, the PeerConnection will consume
     the next available peer from off the queue and try to connect to that one
     instead.
@@ -42,8 +38,10 @@ class PeerConnection:
                  peer_id, piece_manager, on_block_cb=None):
         """
         Constructs a PeerConnection and add it to the asyncio event-loop.
+
         Use `stop` to abort this connection and any subsequent connection
         attempts
+
         :param queue: The async Queue containing available peers
         :param info_hash: The SHA1 hash for the meta-data's info
         :param peer_id: Our peer ID used to to identify ourselves
@@ -66,6 +64,10 @@ class PeerConnection:
 
     async def _start(self):
         while 'stopped' not in self.my_state:
+            # self.my_state = []
+            # self.peer_state = []
+
+            logging.info("Waiting for peer to be assigned")
             ip, port = await self.queue.get()
             logging.info('Got assigned peer with: {ip}'.format(ip=ip))
 
@@ -96,6 +98,7 @@ class PeerConnection:
                 async for message in PeerStreamIterator(self.reader, buffer):
                     if 'stopped' in self.my_state:
                         break
+                        # self.cancel()
                     if type(message) is BitField:
                         self.piece_manager.add_peer(self.remote_id,
                                                     message.bitfield)
@@ -228,6 +231,7 @@ class PeerStreamIterator:
     The `PeerStreamIterator` is an async iterator that continuously reads from
     the given stream reader and tries to parse valid BitTorrent messages from
     off that stream of bytes.
+
     If the connection is dropped, something fails the iterator will abort by
     raising the `StopAsyncIteration` error ending the calling iteration.
     """
@@ -236,6 +240,9 @@ class PeerStreamIterator:
     def __init__(self, reader, initial: bytes = None):
         self.reader = reader
         self.buffer = initial if initial else b''
+
+    def __aiter__(self):
+        return self
 
     async def __anext__(self):
         # Read data from the socket. When we have enough data to parse, parse
@@ -268,13 +275,11 @@ class PeerStreamIterator:
                 raise StopAsyncIteration()
         raise StopAsyncIteration()
 
-    def __aiter__(self):
-        return self
-
     def parse(self):
         """
         Tries to parse protocol messages if there is enough bytes read in the
         buffer.
+
         :return The parsed message, or None if no message could be parsed
         """
         # Each message is structured as:
@@ -347,15 +352,20 @@ class PeerStreamIterator:
 class PeerMessage:
     """
     A message between two peers.
+
     All of the remaining messages in the protocol take the form of:
         <length prefix><message ID><payload>
+
     - The length prefix is a four byte big-endian value.
     - The message ID is a single decimal byte.
     - The payload is message dependent.
+
     NOTE: The Handshake messageis different in layout compared to the other
           messages.
+
     Read more:
         https://wiki.theory.org/BitTorrentSpecification#Messages
+
     BitTorrent uses Big-Endian (Network Byte Order) for all messages, this is
     declared as the first character being '>' in all pack / unpack calls to the
     Python's `struct` module.
@@ -393,13 +403,17 @@ class Handshake(PeerMessage):
     """
     The handshake message is the first message sent and then received from a
     remote peer.
+
     The messages is always 68 bytes long (for this version of BitTorrent
     protocol).
+
     Message format:
         <pstrlen><pstr><reserved><info_hash><peer_id>
+
     In version 1.0 of the BitTorrent protocol:
         pstrlen = 19
         pstr = "BitTorrent protocol".
+
     Thus length is:
         49 + len(pstr) = 68 bytes long.
     """
@@ -408,6 +422,7 @@ class Handshake(PeerMessage):
     def __init__(self, info_hash: bytes, peer_id: bytes):
         """
         Construct the handshake message
+
         :param info_hash: The SHA1 hash for the info dict
         :param peer_id: The unique peer id
         """
@@ -451,6 +466,7 @@ class Handshake(PeerMessage):
 class KeepAlive(PeerMessage):
     """
     The Keep-Alive message has no payload and length is set to zero.
+
     Message format:
         <len=0000>
     """
@@ -463,6 +479,7 @@ class BitField(PeerMessage):
     """
     The BitField is a message with variable length where the payload is a
     bit array representing all the bits a peer have (1) or does not have (0).
+
     Message format:
         <len=0001+X><id=5><bitfield>
     """
@@ -499,6 +516,7 @@ class Interested(PeerMessage):
     The interested message is fix length and has no payload other than the
     message identifiers. It is used to notify each other about interest in
     downloading pieces.
+
     Message format:
         <len=0001><id=2>
     """
@@ -521,6 +539,7 @@ class NotInterested(PeerMessage):
     The not interested message is fix length and has no payload other than the
     message identifier. It is used to notify each other that there is no
     interest to download pieces.
+
     Message format:
         <len=0001><id=3>
     """
@@ -533,6 +552,7 @@ class Choke(PeerMessage):
     """
     The choke message is used to tell the other peer to stop send request
     messages until unchoked.
+
     Message format:
         <len=0001><id=0>
     """
@@ -545,6 +565,7 @@ class Unchoke(PeerMessage):
     """
     Unchoking a peer enables that peer to start requesting pieces from the
     remote peer.
+
     Message format:
         <len=0001><id=1>
     """
@@ -582,9 +603,11 @@ class Have(PeerMessage):
 class Request(PeerMessage):
     """
     The message used to request a block of a piece (i.e. a partial piece).
+
     The request size for each block is 2^14 bytes, except the final block
     that might be smaller (since not all pieces might be evenly divided by the
     request size).
+
     Message format:
         <len=0013><id=6><index><begin><length>
     """
@@ -592,6 +615,7 @@ class Request(PeerMessage):
     def __init__(self, index: int, begin: int, length: int = REQUEST_SIZE):
         """
         Constructs the Request message.
+
         :param index: The zero based piece index
         :param begin: The zero based offset within a piece
         :param length: The requested length of data (default 2^14)
@@ -625,8 +649,10 @@ class Piece(PeerMessage):
     A block is a part of a piece mentioned in the meta-info. The official
     specification refer to them as pieces as well - which is quite confusing
     the unofficial specification refers to them as blocks however.
+
     So this class is named `Piece` to match the message in the specification
     but really, it represents a `Block` (which is non-existent in the spec).
+
     Message format:
         <length prefix><message ID><index><begin><block>
     """
@@ -636,6 +662,7 @@ class Piece(PeerMessage):
     def __init__(self, index: int, begin: int, block: bytes):
         """
         Constructs the Piece message.
+
         :param index: The zero based piece index
         :param begin: The zero based offset within a piece
         :param block: The block data
@@ -670,6 +697,7 @@ class Cancel(PeerMessage):
     """
     The cancel message is used to cancel a previously requested block (in fact
     the message is identical (besides from the id) to the Request message).
+
     Message format:
          <len=0013><id=8><index><begin><length>
     """

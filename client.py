@@ -7,10 +7,10 @@ from hashlib import sha1
 from typing import List, Union
 from logger import init_logger
 from protocol import PeerConnection, REQUEST_SIZE
+from dataclasses import dataclass, field
 from tracker import Tracker
 
 MAX_PEER_CONNECTIONS = 40
-PendingRequest = namedtuple("PendingRequest", ['block', 'added'])
 logging = init_logger(__name__, testing_mode=False)
 
 
@@ -35,11 +35,11 @@ class TorrentClient:
         ]
 
         previous_request = None  # timestamp
-        request_interval = 1800  # sec
+        request_interval = 300  # sec
 
         while True:
             if self.abort:
-                logging.log("Aborting")
+                logging.warning("Aborting")
                 break
 
             if self.piece_manager.complete:
@@ -56,12 +56,18 @@ class TorrentClient:
                 )
 
                 if tracker_response:
+                    logging.warning("Got tracker response. Updating peers")
                     previous_request = current_time
                     request_interval = tracker_response.interval
                     self._empty_queue()
                     for peer in tracker_response.peers:
-                        self.available_peers.put_nowait(peer)
+                        if peer:
+                            self.available_peers.put_nowait(peer)
             else:
+                logging.warning("Waiting for tracker connect, interval is {request_interval}".format(
+                    request_interval=request_interval))
+                for peer in self.peers:
+                    logging.warning("Status of peer {id} is {status}".format(id=peer.remote_id, status=peer.my_state))
                 await asyncio.sleep(5)
         self.stop()
 
@@ -200,10 +206,12 @@ class PieceManager:
         self.peers[peer_id] = bitfield
 
     def update_peer(self, peer_id, index: int):
-        self.peers[peer_id][index] = 1
+        if peer_id in self.peers:
+            self.peers[peer_id][index] = 1
 
     def remove_peer(self, peer_id):
-        del self.peers[peer_id]
+        if peer_id in self.peers:
+            del self.peers[peer_id]
 
     def block_received(self, peer_id, piece_index, block_offset, data):
         logging.info('Received block {block_offset} for piece {piece_index} '
@@ -231,14 +239,15 @@ class PieceManager:
 
                     total_complete = self.total_pieces - len(self.ongoing_pieces) - len(self.missing_pieces)
                     logging.info(
-                        '...................... {complete} / {total} pieces downloaded {per:.3f}% '
-                        '......................% '
+                        '\n................................................................\n'
+                        '{complete} / {total} pieces downloaded {per:.3f}%\n'
+                        '................................................................\n'
                             .format(complete=total_complete,
                                     total=self.total_pieces,
                                     per=(total_complete / self.total_pieces) * 100))
                 else:
-                    logging.info('Discarding corrupt piece {index}'
-                                 .format(index=piece.index))
+                    logging.warning('Discarding corrupt piece {index}'
+                                    .format(index=piece.index))
                     piece.reset()
         else:
             logging.warning('Trying to update a piece which is not ongoing!')
@@ -251,7 +260,10 @@ class PieceManager:
         if not block:
             block = self._next_ongoing(peer_id)
             if not block:
-                block = self._get_rarest_piece(peer_id).next_request()
+                block = self._get_rarest_piece(peer_id)
+                if block:
+                    return block.next_request()
+                block = self._next_missing(peer_id)
         return block
 
     def _expired_requests(self, peer_id) -> Union[Block, None]:
@@ -259,7 +271,7 @@ class PieceManager:
 
         for request in self.pending_blocks:
             if self.peers[peer_id][request.block.piece]:
-                if request.added + self.max_pending_time < current_time:
+                if current_time > (request.added + self.max_pending_time):
                     logging.info('Re-requesting block {block} for '
                                  'piece {piece}'.format(
                         block=request.block.offset,
@@ -275,7 +287,7 @@ class PieceManager:
                 block = piece.next_request()
                 if block:
                     current_time = int(round(time.time() * 1000))
-                    self.pending_blocks.append(PendingRequest(block, current_time))
+                    self.pending_blocks.append(PendingRequest(block=block, added=current_time))
                 return block
         return None
 
@@ -289,12 +301,16 @@ class PieceManager:
                 if self.peers[peer][piece.index]:
                     piece_count[piece] += 1
 
+        if len(piece_count) == 0:
+            return None
+
         rarest_piece = min(piece_count, key=lambda piece: piece_count[piece])
         self.missing_pieces.remove(rarest_piece)
         self.ongoing_pieces.append(rarest_piece)
         return rarest_piece
 
     def _write(self, piece):
+        logging.info("Writing piece {0} to disk....".format(piece.index))
         pos = self.torrent.piece_length * piece.index
         os.lseek(self.fd, pos, os.SEEK_SET)
         os.write(self.fd, piece.data)
@@ -306,3 +322,9 @@ class PieceManager:
                 self.ongoing_pieces.append(piece)
                 return piece.next_request()
         return None
+
+
+@dataclass()
+class PendingRequest:
+    block: Block = field()
+    added: int = field()

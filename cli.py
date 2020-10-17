@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
 
     def signal_handler(*_):
-        logging.info('Exiting, please wait until everything is shutdown...')
+        logging.warning('Exiting, please wait until everything is shutdown...')
         client.stop()
         task.cancel()
 

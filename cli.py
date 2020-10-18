@@ -32,11 +32,11 @@ from client import TorrentClient
 from logger import init_logger, debug_logging_enabled
 from torrent import Torrent
 
+logging = init_logger(__name__, testing_mode=debug_logging_enabled)
+
 if __name__ == "__main__":
-    logging = init_logger(__name__, testing_mode=debug_logging_enabled)
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file", help="Torrent's absolute file path", type=str, required=True)
-    parser.add_argument('-v', '--verbose', action='store_true', help='enable verbose output', required=False)
     args = parser.parse_args()
 
     loop = asyncio.get_event_loop()
@@ -53,6 +53,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
 
     try:
+        logging.info("Starting client task")
         loop.run_until_complete(task)
     except Exception as e:
         logging.exception(e)

@@ -11,9 +11,7 @@
 ## How to run
 ```
 pip install -r requirements.txt
-```
 
-```
 python cli.py --file C:\Users\chaitanya\Documents\torrents\linuxmint-18-cinnamon-64bit.iso.torrent
 ```
 

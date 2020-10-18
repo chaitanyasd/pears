@@ -26,8 +26,8 @@ The main controller is the `TorrentClient`. It is responsible for the following:
 * Using `PieceManager` to manage the torrent pieces
   - `PieceManager` is also responsible for devising a stratedy as to which piece to be requested next for a peer
 
-`Protocol` implementes the BitTorrent protocol. <br>
-The unofficial specification can be found here: https://wiki.theory.org/BitTorrentSpecification
-
+`Protocol` implementes the BitTorrent protocol. The unofficial specification can be found here: https://wiki.theory.org/BitTorrentSpecification
+<br>
+Read more about each module in `/docs`
 ## License
 The client is released under the MIT license, see LICENSE.

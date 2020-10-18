@@ -34,11 +34,15 @@ The main controller is the `TorrentClient`. It is responsible for the following:
 `Protocol` implementes the BitTorrent protocol. The unofficial specification can be found here: https://wiki.theory.org/BitTorrentSpecification
 <br>
 
+Read more about each module in `/docs`
+
 ## Future work
 1. Support torrents with multiple files
 2. Support seeding aka uploading data to other peers
 3. Improve performance
 
-Read more about each module in `/docs`
+## References
+* http://www.kristenwidman.com/blog/33/how-to-write-a-bittorrent-client-part-1/
+
 ## License
 The client is released under the MIT license, see LICENSE.

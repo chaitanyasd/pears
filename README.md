@@ -1,6 +1,6 @@
-## pears :computer:
-### A simple BitTorrent Client
+## pears : A simple BitTorrent client
 
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
 
 ## License

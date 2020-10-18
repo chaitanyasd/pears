@@ -1,0 +1,1085 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module protocol</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>protocol</strong></big></big></font></td
+><td align=right valign=bottom
+></td></tr></table>
+    <p><tt>pears:&nbsp;A&nbsp;simple&nbsp;BitTorrent&nbsp;client<br>
+&nbsp;<br>
+MIT&nbsp;License<br>
+&nbsp;<br>
+Copyright&nbsp;(c)&nbsp;2020&nbsp;Chaitanya&nbsp;Deshpande<br>
+&nbsp;<br>
+Permission&nbsp;is&nbsp;hereby&nbsp;granted,&nbsp;free&nbsp;of&nbsp;charge,&nbsp;to&nbsp;any&nbsp;person&nbsp;obtaining&nbsp;a&nbsp;copy<br>
+of&nbsp;this&nbsp;software&nbsp;and&nbsp;associated&nbsp;documentation&nbsp;files&nbsp;(the&nbsp;"Software"),&nbsp;to&nbsp;deal<br>
+in&nbsp;the&nbsp;Software&nbsp;without&nbsp;restriction,&nbsp;including&nbsp;without&nbsp;limitation&nbsp;the&nbsp;rights<br>
+to&nbsp;use,&nbsp;copy,&nbsp;modify,&nbsp;merge,&nbsp;publish,&nbsp;distribute,&nbsp;sublicense,&nbsp;and/or&nbsp;sell<br>
+copies&nbsp;of&nbsp;the&nbsp;Software,&nbsp;and&nbsp;to&nbsp;permit&nbsp;persons&nbsp;to&nbsp;whom&nbsp;the&nbsp;Software&nbsp;is<br>
+furnished&nbsp;to&nbsp;do&nbsp;so,&nbsp;subject&nbsp;to&nbsp;the&nbsp;following&nbsp;conditions:<br>
+&nbsp;<br>
+The&nbsp;above&nbsp;copyright&nbsp;notice&nbsp;and&nbsp;this&nbsp;permission&nbsp;notice&nbsp;shall&nbsp;be&nbsp;included&nbsp;in&nbsp;all<br>
+copies&nbsp;or&nbsp;substantial&nbsp;portions&nbsp;of&nbsp;the&nbsp;Software.<br>
+&nbsp;<br>
+THE&nbsp;SOFTWARE&nbsp;IS&nbsp;PROVIDED&nbsp;"AS&nbsp;IS",&nbsp;WITHOUT&nbsp;WARRANTY&nbsp;OF&nbsp;ANY&nbsp;KIND,&nbsp;EXPRESS&nbsp;OR<br>
+IMPLIED,&nbsp;INCLUDING&nbsp;BUT&nbsp;NOT&nbsp;LIMITED&nbsp;TO&nbsp;THE&nbsp;WARRANTIES&nbsp;OF&nbsp;MERCHANTABILITY,<br>
+FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE&nbsp;AND&nbsp;NONINFRINGEMENT.&nbsp;IN&nbsp;NO&nbsp;EVENT&nbsp;SHALL&nbsp;THE<br>
+AUTHORS&nbsp;OR&nbsp;COPYRIGHT&nbsp;HOLDERS&nbsp;BE&nbsp;LIABLE&nbsp;FOR&nbsp;ANY&nbsp;CLAIM,&nbsp;DAMAGES&nbsp;OR&nbsp;OTHER<br>
+LIABILITY,&nbsp;WHETHER&nbsp;IN&nbsp;AN&nbsp;ACTION&nbsp;OF&nbsp;CONTRACT,&nbsp;TORT&nbsp;OR&nbsp;OTHERWISE,&nbsp;ARISING&nbsp;FROM,<br>
+OUT&nbsp;OF&nbsp;OR&nbsp;IN&nbsp;CONNECTION&nbsp;WITH&nbsp;THE&nbsp;SOFTWARE&nbsp;OR&nbsp;THE&nbsp;USE&nbsp;OR&nbsp;OTHER&nbsp;DEALINGS&nbsp;IN&nbsp;THE<br>
+SOFTWARE.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="asyncio.html">asyncio</a><br>
+</td><td width="25%" valign=top><a href="bitstring.html">bitstring</a><br>
+</td><td width="25%" valign=top><a href="struct.html">struct</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#BaseException">builtins.BaseException</a>(<a href="builtins.html#object">builtins.object</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="protocol.html#ProtocolError">ProtocolError</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="protocol.html#PeerConnection">PeerConnection</a>
+</font></dt><dt><font face="helvetica, arial"><a href="protocol.html#PeerMessage">PeerMessage</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="protocol.html#BitField">BitField</a>
+</font></dt><dt><font face="helvetica, arial"><a href="protocol.html#Cancel">Cancel</a>
+</font></dt><dt><font face="helvetica, arial"><a href="protocol.html#Choke">Choke</a>
+</font></dt><dt><font face="helvetica, arial"><a href="protocol.html#Handshake">Handshake</a>
+</font></dt><dt><font face="helvetica, arial"><a href="protocol.html#Have">Have</a>
+</font></dt><dt><font face="helvetica, arial"><a href="protocol.html#Interested">Interested</a>
+</font></dt><dt><font face="helvetica, arial"><a href="protocol.html#KeepAlive">KeepAlive</a>
+</font></dt><dt><font face="helvetica, arial"><a href="protocol.html#NotInterested">NotInterested</a>
+</font></dt><dt><font face="helvetica, arial"><a href="protocol.html#Piece">Piece</a>
+</font></dt><dt><font face="helvetica, arial"><a href="protocol.html#Request">Request</a>
+</font></dt><dt><font face="helvetica, arial"><a href="protocol.html#Unchoke">Unchoke</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="protocol.html#PeerStreamIterator">PeerStreamIterator</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="BitField">class <strong>BitField</strong></a>(<a href="protocol.html#PeerMessage">PeerMessage</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#BitField-BitField">BitField</a>(data)<br>
+&nbsp;<br>
+The&nbsp;<a href="#BitField">BitField</a>&nbsp;is&nbsp;a&nbsp;message&nbsp;with&nbsp;variable&nbsp;length&nbsp;where&nbsp;the&nbsp;payload&nbsp;is&nbsp;a<br>
+bit&nbsp;array&nbsp;representing&nbsp;all&nbsp;the&nbsp;bits&nbsp;a&nbsp;peer&nbsp;have&nbsp;(1)&nbsp;or&nbsp;does&nbsp;not&nbsp;have&nbsp;(0).<br>
+&nbsp;<br>
+Message&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;len=0001+X&gt;&lt;id=5&gt;&lt;bitfield&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#BitField">BitField</a></dd>
+<dd><a href="protocol.html#PeerMessage">PeerMessage</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="BitField-__init__"><strong>__init__</strong></a>(self, data)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="BitField-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="BitField-encode"><strong>encode</strong></a>(self) -&gt; bytes</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="BitField-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;instance&nbsp;for&nbsp;the<br>
+implementing&nbsp;type.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Cancel">class <strong>Cancel</strong></a>(<a href="protocol.html#PeerMessage">PeerMessage</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Cancel-Cancel">Cancel</a>(index,&nbsp;begin,&nbsp;length:&nbsp;int&nbsp;=&nbsp;16384)<br>
+&nbsp;<br>
+The&nbsp;cancel&nbsp;message&nbsp;is&nbsp;used&nbsp;to&nbsp;cancel&nbsp;a&nbsp;previously&nbsp;requested&nbsp;block&nbsp;(in&nbsp;fact<br>
+the&nbsp;message&nbsp;is&nbsp;identical&nbsp;(besides&nbsp;from&nbsp;the&nbsp;id)&nbsp;to&nbsp;the&nbsp;<a href="#Request">Request</a>&nbsp;message).<br>
+&nbsp;<br>
+Message&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;len=0013&gt;&lt;id=8&gt;&lt;index&gt;&lt;begin&gt;&lt;length&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#Cancel">Cancel</a></dd>
+<dd><a href="protocol.html#PeerMessage">PeerMessage</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Cancel-__init__"><strong>__init__</strong></a>(self, index, begin, length: int = 16384)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="Cancel-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="Cancel-encode"><strong>encode</strong></a>(self)</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="Cancel-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;instance&nbsp;for&nbsp;the<br>
+implementing&nbsp;type.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Choke">class <strong>Choke</strong></a>(<a href="protocol.html#PeerMessage">PeerMessage</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;choke&nbsp;message&nbsp;is&nbsp;used&nbsp;to&nbsp;tell&nbsp;the&nbsp;other&nbsp;peer&nbsp;to&nbsp;stop&nbsp;send&nbsp;request<br>
+messages&nbsp;until&nbsp;unchoked.<br>
+&nbsp;<br>
+Message&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;len=0001&gt;&lt;id=0&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#Choke">Choke</a></dd>
+<dd><a href="protocol.html#PeerMessage">PeerMessage</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Choke-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><a name="Choke-encode"><strong>encode</strong></a>(self) -&gt; bytes</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><a name="Choke-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;instance&nbsp;for&nbsp;the<br>
+implementing&nbsp;type.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Handshake">class <strong>Handshake</strong></a>(<a href="protocol.html#PeerMessage">PeerMessage</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Handshake-Handshake">Handshake</a>(info_hash:&nbsp;bytes,&nbsp;peer_id:&nbsp;bytes)<br>
+&nbsp;<br>
+The&nbsp;handshake&nbsp;message&nbsp;is&nbsp;the&nbsp;first&nbsp;message&nbsp;sent&nbsp;and&nbsp;then&nbsp;received&nbsp;from&nbsp;a<br>
+remote&nbsp;peer.<br>
+&nbsp;<br>
+The&nbsp;messages&nbsp;is&nbsp;always&nbsp;68&nbsp;bytes&nbsp;long&nbsp;(for&nbsp;this&nbsp;version&nbsp;of&nbsp;BitTorrent<br>
+protocol).<br>
+&nbsp;<br>
+Message&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;pstrlen&gt;&lt;pstr&gt;&lt;reserved&gt;&lt;info_hash&gt;&lt;peer_id&gt;<br>
+&nbsp;<br>
+In&nbsp;version&nbsp;1.0&nbsp;of&nbsp;the&nbsp;BitTorrent&nbsp;protocol:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pstrlen&nbsp;=&nbsp;19<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pstr&nbsp;=&nbsp;"BitTorrent&nbsp;protocol".<br>
+&nbsp;<br>
+Thus&nbsp;length&nbsp;is:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;49&nbsp;+&nbsp;len(pstr)&nbsp;=&nbsp;68&nbsp;bytes&nbsp;long.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#Handshake">Handshake</a></dd>
+<dd><a href="protocol.html#PeerMessage">PeerMessage</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Handshake-__init__"><strong>__init__</strong></a>(self, info_hash: bytes, peer_id: bytes)</dt><dd><tt>Construct&nbsp;the&nbsp;handshake&nbsp;message<br>
+&nbsp;<br>
+:param&nbsp;info_hash:&nbsp;The&nbsp;SHA1&nbsp;hash&nbsp;for&nbsp;the&nbsp;info&nbsp;dict<br>
+:param&nbsp;peer_id:&nbsp;The&nbsp;unique&nbsp;peer&nbsp;id</tt></dd></dl>
+
+<dl><dt><a name="Handshake-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="Handshake-encode"><strong>encode</strong></a>(self) -&gt; bytes</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="Handshake-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;handshake&nbsp;message,&nbsp;if&nbsp;not<br>
+a&nbsp;valid&nbsp;message,&nbsp;None&nbsp;is&nbsp;returned.</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>length</strong> = 68</dl>
+
+<hr>
+Data descriptors inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Have">class <strong>Have</strong></a>(<a href="protocol.html#PeerMessage">PeerMessage</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Have-Have">Have</a>(index:&nbsp;int)<br>
+&nbsp;<br>
+Represents&nbsp;a&nbsp;piece&nbsp;successfully&nbsp;downloaded&nbsp;by&nbsp;the&nbsp;remote&nbsp;peer.&nbsp;The&nbsp;piece<br>
+is&nbsp;a&nbsp;zero&nbsp;based&nbsp;index&nbsp;of&nbsp;the&nbsp;torrents&nbsp;pieces<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#Have">Have</a></dd>
+<dd><a href="protocol.html#PeerMessage">PeerMessage</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Have-__init__"><strong>__init__</strong></a>(self, index: int)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="Have-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="Have-encode"><strong>encode</strong></a>(self)</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="Have-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;instance&nbsp;for&nbsp;the<br>
+implementing&nbsp;type.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Interested">class <strong>Interested</strong></a>(<a href="protocol.html#PeerMessage">PeerMessage</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;interested&nbsp;message&nbsp;is&nbsp;fix&nbsp;length&nbsp;and&nbsp;has&nbsp;no&nbsp;payload&nbsp;other&nbsp;than&nbsp;the<br>
+message&nbsp;identifiers.&nbsp;It&nbsp;is&nbsp;used&nbsp;to&nbsp;notify&nbsp;each&nbsp;other&nbsp;about&nbsp;interest&nbsp;in<br>
+downloading&nbsp;pieces.<br>
+&nbsp;<br>
+Message&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;len=0001&gt;&lt;id=2&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#Interested">Interested</a></dd>
+<dd><a href="protocol.html#PeerMessage">PeerMessage</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Interested-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="Interested-encode"><strong>encode</strong></a>(self) -&gt; bytes</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><a name="Interested-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;instance&nbsp;for&nbsp;the<br>
+implementing&nbsp;type.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="KeepAlive">class <strong>KeepAlive</strong></a>(<a href="protocol.html#PeerMessage">PeerMessage</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;Keep-Alive&nbsp;message&nbsp;has&nbsp;no&nbsp;payload&nbsp;and&nbsp;length&nbsp;is&nbsp;set&nbsp;to&nbsp;zero.<br>
+&nbsp;<br>
+Message&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;len=0000&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#KeepAlive">KeepAlive</a></dd>
+<dd><a href="protocol.html#PeerMessage">PeerMessage</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="KeepAlive-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><a name="KeepAlive-encode"><strong>encode</strong></a>(self) -&gt; bytes</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><a name="KeepAlive-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;instance&nbsp;for&nbsp;the<br>
+implementing&nbsp;type.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="NotInterested">class <strong>NotInterested</strong></a>(<a href="protocol.html#PeerMessage">PeerMessage</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;not&nbsp;interested&nbsp;message&nbsp;is&nbsp;fix&nbsp;length&nbsp;and&nbsp;has&nbsp;no&nbsp;payload&nbsp;other&nbsp;than&nbsp;the<br>
+message&nbsp;identifier.&nbsp;It&nbsp;is&nbsp;used&nbsp;to&nbsp;notify&nbsp;each&nbsp;other&nbsp;that&nbsp;there&nbsp;is&nbsp;no<br>
+interest&nbsp;to&nbsp;download&nbsp;pieces.<br>
+&nbsp;<br>
+Message&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;len=0001&gt;&lt;id=3&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#NotInterested">NotInterested</a></dd>
+<dd><a href="protocol.html#PeerMessage">PeerMessage</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="NotInterested-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><a name="NotInterested-encode"><strong>encode</strong></a>(self) -&gt; bytes</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><a name="NotInterested-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;instance&nbsp;for&nbsp;the<br>
+implementing&nbsp;type.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PeerConnection">class <strong>PeerConnection</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#PeerConnection">PeerConnection</a>(queue:&nbsp;asyncio.queues.Queue,&nbsp;info_hash,&nbsp;peer_id,&nbsp;piece_manager,&nbsp;on_block_cb=None)<br>
+&nbsp;<br>
+A&nbsp;peer&nbsp;connection&nbsp;used&nbsp;to&nbsp;download&nbsp;and&nbsp;upload&nbsp;pieces.<br>
+&nbsp;<br>
+The&nbsp;peer&nbsp;connection&nbsp;will&nbsp;consume&nbsp;one&nbsp;available&nbsp;peer&nbsp;from&nbsp;the&nbsp;given&nbsp;queue.<br>
+Based&nbsp;on&nbsp;the&nbsp;peer&nbsp;details&nbsp;the&nbsp;<a href="#PeerConnection">PeerConnection</a>&nbsp;will&nbsp;try&nbsp;to&nbsp;open&nbsp;a&nbsp;connection<br>
+and&nbsp;perform&nbsp;a&nbsp;BitTorrent&nbsp;handshake.<br>
+&nbsp;<br>
+After&nbsp;a&nbsp;successful&nbsp;handshake,&nbsp;the&nbsp;<a href="#PeerConnection">PeerConnection</a>&nbsp;will&nbsp;be&nbsp;in&nbsp;a&nbsp;*choked*<br>
+state,&nbsp;not&nbsp;allowed&nbsp;to&nbsp;request&nbsp;any&nbsp;data&nbsp;from&nbsp;the&nbsp;remote&nbsp;peer.&nbsp;After&nbsp;sending<br>
+an&nbsp;interested&nbsp;message&nbsp;the&nbsp;<a href="#PeerConnection">PeerConnection</a>&nbsp;will&nbsp;be&nbsp;waiting&nbsp;to&nbsp;get&nbsp;*unchoked*.<br>
+&nbsp;<br>
+Once&nbsp;the&nbsp;remote&nbsp;peer&nbsp;unchoked&nbsp;us,&nbsp;we&nbsp;can&nbsp;start&nbsp;requesting&nbsp;pieces.<br>
+The&nbsp;<a href="#PeerConnection">PeerConnection</a>&nbsp;will&nbsp;continue&nbsp;to&nbsp;request&nbsp;pieces&nbsp;for&nbsp;as&nbsp;long&nbsp;as&nbsp;there&nbsp;are<br>
+pieces&nbsp;left&nbsp;to&nbsp;request,&nbsp;or&nbsp;until&nbsp;the&nbsp;remote&nbsp;peer&nbsp;disconnects.<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;connection&nbsp;with&nbsp;a&nbsp;remote&nbsp;peer&nbsp;drops,&nbsp;the&nbsp;<a href="#PeerConnection">PeerConnection</a>&nbsp;will&nbsp;consume<br>
+the&nbsp;next&nbsp;available&nbsp;peer&nbsp;from&nbsp;off&nbsp;the&nbsp;queue&nbsp;and&nbsp;try&nbsp;to&nbsp;connect&nbsp;to&nbsp;that&nbsp;one<br>
+instead.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="PeerConnection-__init__"><strong>__init__</strong></a>(self, queue: asyncio.queues.Queue, info_hash, peer_id, piece_manager, on_block_cb=None)</dt><dd><tt>Constructs&nbsp;a&nbsp;<a href="#PeerConnection">PeerConnection</a>&nbsp;and&nbsp;add&nbsp;it&nbsp;to&nbsp;the&nbsp;asyncio&nbsp;event-loop.<br>
+&nbsp;<br>
+Use&nbsp;`stop`&nbsp;to&nbsp;abort&nbsp;this&nbsp;connection&nbsp;and&nbsp;any&nbsp;subsequent&nbsp;connection<br>
+attempts<br>
+&nbsp;<br>
+:param&nbsp;queue:&nbsp;The&nbsp;async&nbsp;Queue&nbsp;containing&nbsp;available&nbsp;peers<br>
+:param&nbsp;info_hash:&nbsp;The&nbsp;SHA1&nbsp;hash&nbsp;for&nbsp;the&nbsp;meta-data's&nbsp;info<br>
+:param&nbsp;peer_id:&nbsp;Our&nbsp;peer&nbsp;ID&nbsp;used&nbsp;to&nbsp;to&nbsp;identify&nbsp;ourselves<br>
+:param&nbsp;piece_manager:&nbsp;The&nbsp;manager&nbsp;responsible&nbsp;to&nbsp;determine&nbsp;which&nbsp;pieces<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;request<br>
+:param&nbsp;on_block_cb:&nbsp;The&nbsp;callback&nbsp;function&nbsp;to&nbsp;call&nbsp;when&nbsp;a&nbsp;block&nbsp;is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;received&nbsp;from&nbsp;the&nbsp;remote&nbsp;peer</tt></dd></dl>
+
+<dl><dt><a name="PeerConnection-cancel"><strong>cancel</strong></a>(self)</dt><dd><tt>Sends&nbsp;the&nbsp;cancel&nbsp;message&nbsp;to&nbsp;the&nbsp;remote&nbsp;peer&nbsp;and&nbsp;closes&nbsp;the&nbsp;connection.</tt></dd></dl>
+
+<dl><dt><a name="PeerConnection-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Stop&nbsp;this&nbsp;connection&nbsp;from&nbsp;the&nbsp;current&nbsp;peer&nbsp;(if&nbsp;a&nbsp;connection&nbsp;exist)&nbsp;and<br>
+from&nbsp;connecting&nbsp;to&nbsp;any&nbsp;new&nbsp;peer.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PeerMessage">class <strong>PeerMessage</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;message&nbsp;between&nbsp;two&nbsp;peers.<br>
+&nbsp;<br>
+All&nbsp;of&nbsp;the&nbsp;remaining&nbsp;messages&nbsp;in&nbsp;the&nbsp;protocol&nbsp;take&nbsp;the&nbsp;form&nbsp;of:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;length&nbsp;prefix&gt;&lt;message&nbsp;ID&gt;&lt;payload&gt;<br>
+&nbsp;<br>
+-&nbsp;The&nbsp;length&nbsp;prefix&nbsp;is&nbsp;a&nbsp;four&nbsp;byte&nbsp;big-endian&nbsp;value.<br>
+-&nbsp;The&nbsp;message&nbsp;ID&nbsp;is&nbsp;a&nbsp;single&nbsp;decimal&nbsp;byte.<br>
+-&nbsp;The&nbsp;payload&nbsp;is&nbsp;message&nbsp;dependent.<br>
+&nbsp;<br>
+NOTE:&nbsp;The&nbsp;<a href="#Handshake">Handshake</a>&nbsp;message&nbsp;is&nbsp;different&nbsp;in&nbsp;layout&nbsp;compared&nbsp;to&nbsp;the&nbsp;other<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messages.<br>
+&nbsp;<br>
+More&nbsp;info:&nbsp;https://wiki.theory.org/BitTorrentSpecification#Messages<br>
+&nbsp;<br>
+BitTorrent&nbsp;uses&nbsp;Big-Endian&nbsp;(Network&nbsp;Byte&nbsp;Order)&nbsp;for&nbsp;all&nbsp;messages,&nbsp;this&nbsp;is<br>
+declared&nbsp;as&nbsp;the&nbsp;first&nbsp;character&nbsp;being&nbsp;'&gt;'&nbsp;in&nbsp;all&nbsp;pack&nbsp;/&nbsp;unpack&nbsp;calls&nbsp;to&nbsp;the<br>
+Python's&nbsp;`struct`&nbsp;module.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="PeerMessage-encode"><strong>encode</strong></a>(self) -&gt; bytes</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="PeerMessage-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;instance&nbsp;for&nbsp;the<br>
+implementing&nbsp;type.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PeerStreamIterator">class <strong>PeerStreamIterator</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#PeerStreamIterator">PeerStreamIterator</a>(reader,&nbsp;initial:&nbsp;bytes&nbsp;=&nbsp;None)<br>
+&nbsp;<br>
+The&nbsp;`<a href="#PeerStreamIterator">PeerStreamIterator</a>`&nbsp;is&nbsp;an&nbsp;async&nbsp;iterator&nbsp;that&nbsp;continuously&nbsp;reads&nbsp;from<br>
+the&nbsp;given&nbsp;stream&nbsp;reader&nbsp;and&nbsp;tries&nbsp;to&nbsp;parse&nbsp;valid&nbsp;BitTorrent&nbsp;messages&nbsp;from<br>
+off&nbsp;that&nbsp;stream&nbsp;of&nbsp;bytes.<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;connection&nbsp;is&nbsp;dropped,&nbsp;something&nbsp;fails&nbsp;the&nbsp;iterator&nbsp;will&nbsp;abort&nbsp;by<br>
+raising&nbsp;the&nbsp;`StopAsyncIteration`&nbsp;error&nbsp;ending&nbsp;the&nbsp;calling&nbsp;iteration.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="PeerStreamIterator-__aiter__"><strong>__aiter__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PeerStreamIterator-__anext__"><strong>__anext__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PeerStreamIterator-__init__"><strong>__init__</strong></a>(self, reader, initial: bytes = None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="PeerStreamIterator-parse"><strong>parse</strong></a>(self)</dt><dd><tt>Tries&nbsp;to&nbsp;parse&nbsp;protocol&nbsp;messages&nbsp;if&nbsp;there&nbsp;is&nbsp;enough&nbsp;bytes&nbsp;read&nbsp;in&nbsp;the<br>
+buffer.<br>
+&nbsp;<br>
+:return&nbsp;The&nbsp;parsed&nbsp;message,&nbsp;or&nbsp;None&nbsp;if&nbsp;no&nbsp;message&nbsp;could&nbsp;be&nbsp;parsed</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>CHUNK_SIZE</strong> = 10240</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Piece">class <strong>Piece</strong></a>(<a href="protocol.html#PeerMessage">PeerMessage</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Piece-Piece">Piece</a>(index:&nbsp;int,&nbsp;begin:&nbsp;int,&nbsp;block:&nbsp;bytes)<br>
+&nbsp;<br>
+A&nbsp;block&nbsp;is&nbsp;a&nbsp;part&nbsp;of&nbsp;a&nbsp;piece&nbsp;mentioned&nbsp;in&nbsp;the&nbsp;meta-info.&nbsp;The&nbsp;official<br>
+specification&nbsp;refer&nbsp;to&nbsp;them&nbsp;as&nbsp;pieces&nbsp;as&nbsp;well&nbsp;-&nbsp;which&nbsp;is&nbsp;quite&nbsp;confusing<br>
+the&nbsp;unofficial&nbsp;specification&nbsp;refers&nbsp;to&nbsp;them&nbsp;as&nbsp;blocks&nbsp;however.<br>
+&nbsp;<br>
+So&nbsp;this&nbsp;class&nbsp;is&nbsp;named&nbsp;`<a href="#Piece">Piece</a>`&nbsp;to&nbsp;match&nbsp;the&nbsp;message&nbsp;in&nbsp;the&nbsp;specification<br>
+but&nbsp;really,&nbsp;it&nbsp;represents&nbsp;a&nbsp;`Block`&nbsp;(which&nbsp;is&nbsp;non-existent&nbsp;in&nbsp;the&nbsp;spec).<br>
+&nbsp;<br>
+Message&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;length&nbsp;prefix&gt;&lt;message&nbsp;ID&gt;&lt;index&gt;&lt;begin&gt;&lt;block&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#Piece">Piece</a></dd>
+<dd><a href="protocol.html#PeerMessage">PeerMessage</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Piece-__init__"><strong>__init__</strong></a>(self, index: int, begin: int, block: bytes)</dt><dd><tt>Constructs&nbsp;the&nbsp;<a href="#Piece">Piece</a>&nbsp;message.<br>
+&nbsp;<br>
+:param&nbsp;index:&nbsp;The&nbsp;zero&nbsp;based&nbsp;piece&nbsp;index<br>
+:param&nbsp;begin:&nbsp;The&nbsp;zero&nbsp;based&nbsp;offset&nbsp;within&nbsp;a&nbsp;piece<br>
+:param&nbsp;block:&nbsp;The&nbsp;block&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="Piece-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="Piece-encode"><strong>encode</strong></a>(self)</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="Piece-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;instance&nbsp;for&nbsp;the<br>
+implementing&nbsp;type.</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>length</strong> = 9</dl>
+
+<hr>
+Data descriptors inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ProtocolError">class <strong>ProtocolError</strong></a>(<a href="builtins.html#BaseException">builtins.BaseException</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Common&nbsp;base&nbsp;class&nbsp;for&nbsp;all&nbsp;exceptions<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#ProtocolError">ProtocolError</a></dd>
+<dd><a href="builtins.html#BaseException">builtins.BaseException</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><a name="ProtocolError-__delattr__"><strong>__delattr__</strong></a>(self, name, /)</dt><dd><tt>Implement&nbsp;delattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="ProtocolError-__getattribute__"><strong>__getattribute__</strong></a>(self, name, /)</dt><dd><tt>Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="ProtocolError-__init__"><strong>__init__</strong></a>(self, /, *args, **kwargs)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="ProtocolError-__reduce__"><strong>__reduce__</strong></a>(...)</dt><dd><tt>Helper&nbsp;for&nbsp;pickle.</tt></dd></dl>
+
+<dl><dt><a name="ProtocolError-__repr__"><strong>__repr__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="ProtocolError-__setattr__"><strong>__setattr__</strong></a>(self, name, value, /)</dt><dd><tt>Implement&nbsp;setattr(self,&nbsp;name,&nbsp;value).</tt></dd></dl>
+
+<dl><dt><a name="ProtocolError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="ProtocolError-__str__"><strong>__str__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="ProtocolError-with_traceback"><strong>with_traceback</strong></a>(...)</dt><dd><tt>Exception.<a href="#ProtocolError-with_traceback">with_traceback</a>(tb)&nbsp;--<br>
+set&nbsp;self.<strong>__traceback__</strong>&nbsp;to&nbsp;tb&nbsp;and&nbsp;return&nbsp;self.</tt></dd></dl>
+
+<hr>
+Static methods inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><a name="ProtocolError-__new__"><strong>__new__</strong></a>(*args, **kwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><strong>__cause__</strong></dt>
+<dd><tt>exception&nbsp;cause</tt></dd>
+</dl>
+<dl><dt><strong>__context__</strong></dt>
+<dd><tt>exception&nbsp;context</tt></dd>
+</dl>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__suppress_context__</strong></dt>
+</dl>
+<dl><dt><strong>__traceback__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Request">class <strong>Request</strong></a>(<a href="protocol.html#PeerMessage">PeerMessage</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Request-Request">Request</a>(index:&nbsp;int,&nbsp;begin:&nbsp;int,&nbsp;length:&nbsp;int&nbsp;=&nbsp;16384)<br>
+&nbsp;<br>
+The&nbsp;message&nbsp;used&nbsp;to&nbsp;request&nbsp;a&nbsp;block&nbsp;of&nbsp;a&nbsp;piece&nbsp;(i.e.&nbsp;a&nbsp;partial&nbsp;piece).<br>
+&nbsp;<br>
+The&nbsp;request&nbsp;size&nbsp;for&nbsp;each&nbsp;block&nbsp;is&nbsp;2^14&nbsp;bytes,&nbsp;except&nbsp;the&nbsp;final&nbsp;block<br>
+that&nbsp;might&nbsp;be&nbsp;smaller&nbsp;(since&nbsp;not&nbsp;all&nbsp;pieces&nbsp;might&nbsp;be&nbsp;evenly&nbsp;divided&nbsp;by&nbsp;the<br>
+request&nbsp;size).<br>
+&nbsp;<br>
+Message&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;len=0013&gt;&lt;id=6&gt;&lt;index&gt;&lt;begin&gt;&lt;length&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#Request">Request</a></dd>
+<dd><a href="protocol.html#PeerMessage">PeerMessage</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Request-__init__"><strong>__init__</strong></a>(self, index: int, begin: int, length: int = 16384)</dt><dd><tt>Constructs&nbsp;the&nbsp;<a href="#Request">Request</a>&nbsp;message.<br>
+&nbsp;<br>
+:param&nbsp;index:&nbsp;The&nbsp;zero&nbsp;based&nbsp;piece&nbsp;index<br>
+:param&nbsp;begin:&nbsp;The&nbsp;zero&nbsp;based&nbsp;offset&nbsp;within&nbsp;a&nbsp;piece<br>
+:param&nbsp;length:&nbsp;The&nbsp;requested&nbsp;length&nbsp;of&nbsp;data&nbsp;(default&nbsp;2^14)</tt></dd></dl>
+
+<dl><dt><a name="Request-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="Request-encode"><strong>encode</strong></a>(self)</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods defined here:<br>
+<dl><dt><a name="Request-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;instance&nbsp;for&nbsp;the<br>
+implementing&nbsp;type.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Unchoke">class <strong>Unchoke</strong></a>(<a href="protocol.html#PeerMessage">PeerMessage</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Unchoking&nbsp;a&nbsp;peer&nbsp;enables&nbsp;that&nbsp;peer&nbsp;to&nbsp;start&nbsp;requesting&nbsp;pieces&nbsp;from&nbsp;the<br>
+remote&nbsp;peer.<br>
+&nbsp;<br>
+Message&nbsp;format:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;len=0001&gt;&lt;id=1&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="protocol.html#Unchoke">Unchoke</a></dd>
+<dd><a href="protocol.html#PeerMessage">PeerMessage</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Unchoke-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><a name="Unchoke-encode"><strong>encode</strong></a>(self) -&gt; bytes</dt><dd><tt>Encodes&nbsp;this&nbsp;<a href="builtins.html#object">object</a>&nbsp;instance&nbsp;to&nbsp;the&nbsp;raw&nbsp;bytes&nbsp;representing&nbsp;the&nbsp;entire<br>
+message&nbsp;(ready&nbsp;to&nbsp;be&nbsp;transmitted).</tt></dd></dl>
+
+<hr>
+Class methods inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><a name="Unchoke-decode"><strong>decode</strong></a>(data: bytes)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Decodes&nbsp;the&nbsp;given&nbsp;BitTorrent&nbsp;message&nbsp;into&nbsp;a&nbsp;instance&nbsp;for&nbsp;the<br>
+implementing&nbsp;type.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="protocol.html#PeerMessage">PeerMessage</a>:<br>
+<dl><dt><strong>BitField</strong> = 5</dl>
+
+<dl><dt><strong>Cancel</strong> = 8</dl>
+
+<dl><dt><strong>Choke</strong> = 0</dl>
+
+<dl><dt><strong>Handshake</strong> = None</dl>
+
+<dl><dt><strong>Have</strong> = 4</dl>
+
+<dl><dt><strong>Interested</strong> = 2</dl>
+
+<dl><dt><strong>KeepAlive</strong> = None</dl>
+
+<dl><dt><strong>NotInterested</strong> = 3</dl>
+
+<dl><dt><strong>Piece</strong> = 7</dl>
+
+<dl><dt><strong>Port</strong> = 9</dl>
+
+<dl><dt><strong>Request</strong> = 6</dl>
+
+<dl><dt><strong>Unchoke</strong> = 1</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>REQUEST_SIZE</strong> = 16384<br>
+<strong>debug_logging_enabled</strong> = False<br>
+<strong>logging</strong> = &lt;Logger protocol (INFO)&gt;</td></tr></table>
+</body></html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module client</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>client</strong></big></big></font></td
+><td align=right valign=bottom
+></td></tr></table>
+    <p><tt>pears:&nbsp;A&nbsp;simple&nbsp;BitTorrent&nbsp;client<br>
+&nbsp;<br>
+MIT&nbsp;License<br>
+&nbsp;<br>
+Copyright&nbsp;(c)&nbsp;2020&nbsp;Chaitanya&nbsp;Deshpande<br>
+&nbsp;<br>
+Permission&nbsp;is&nbsp;hereby&nbsp;granted,&nbsp;free&nbsp;of&nbsp;charge,&nbsp;to&nbsp;any&nbsp;person&nbsp;obtaining&nbsp;a&nbsp;copy<br>
+of&nbsp;this&nbsp;software&nbsp;and&nbsp;associated&nbsp;documentation&nbsp;files&nbsp;(the&nbsp;"Software"),&nbsp;to&nbsp;deal<br>
+in&nbsp;the&nbsp;Software&nbsp;without&nbsp;restriction,&nbsp;including&nbsp;without&nbsp;limitation&nbsp;the&nbsp;rights<br>
+to&nbsp;use,&nbsp;copy,&nbsp;modify,&nbsp;merge,&nbsp;publish,&nbsp;distribute,&nbsp;sublicense,&nbsp;and/or&nbsp;sell<br>
+copies&nbsp;of&nbsp;the&nbsp;Software,&nbsp;and&nbsp;to&nbsp;permit&nbsp;persons&nbsp;to&nbsp;whom&nbsp;the&nbsp;Software&nbsp;is<br>
+furnished&nbsp;to&nbsp;do&nbsp;so,&nbsp;subject&nbsp;to&nbsp;the&nbsp;following&nbsp;conditions:<br>
+&nbsp;<br>
+The&nbsp;above&nbsp;copyright&nbsp;notice&nbsp;and&nbsp;this&nbsp;permission&nbsp;notice&nbsp;shall&nbsp;be&nbsp;included&nbsp;in&nbsp;all<br>
+copies&nbsp;or&nbsp;substantial&nbsp;portions&nbsp;of&nbsp;the&nbsp;Software.<br>
+&nbsp;<br>
+THE&nbsp;SOFTWARE&nbsp;IS&nbsp;PROVIDED&nbsp;"AS&nbsp;IS",&nbsp;WITHOUT&nbsp;WARRANTY&nbsp;OF&nbsp;ANY&nbsp;KIND,&nbsp;EXPRESS&nbsp;OR<br>
+IMPLIED,&nbsp;INCLUDING&nbsp;BUT&nbsp;NOT&nbsp;LIMITED&nbsp;TO&nbsp;THE&nbsp;WARRANTIES&nbsp;OF&nbsp;MERCHANTABILITY,<br>
+FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE&nbsp;AND&nbsp;NONINFRINGEMENT.&nbsp;IN&nbsp;NO&nbsp;EVENT&nbsp;SHALL&nbsp;THE<br>
+AUTHORS&nbsp;OR&nbsp;COPYRIGHT&nbsp;HOLDERS&nbsp;BE&nbsp;LIABLE&nbsp;FOR&nbsp;ANY&nbsp;CLAIM,&nbsp;DAMAGES&nbsp;OR&nbsp;OTHER<br>
+LIABILITY,&nbsp;WHETHER&nbsp;IN&nbsp;AN&nbsp;ACTION&nbsp;OF&nbsp;CONTRACT,&nbsp;TORT&nbsp;OR&nbsp;OTHERWISE,&nbsp;ARISING&nbsp;FROM,<br>
+OUT&nbsp;OF&nbsp;OR&nbsp;IN&nbsp;CONNECTION&nbsp;WITH&nbsp;THE&nbsp;SOFTWARE&nbsp;OR&nbsp;THE&nbsp;USE&nbsp;OR&nbsp;OTHER&nbsp;DEALINGS&nbsp;IN&nbsp;THE<br>
+SOFTWARE.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="asyncio.html">asyncio</a><br>
+</td><td width="25%" valign=top><a href="math.html">math</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="client.html#Block">Block</a>
+</font></dt><dt><font face="helvetica, arial"><a href="client.html#PendingRequest">PendingRequest</a>
+</font></dt><dt><font face="helvetica, arial"><a href="client.html#Piece">Piece</a>
+</font></dt><dt><font face="helvetica, arial"><a href="client.html#PieceManager">PieceManager</a>
+</font></dt><dt><font face="helvetica, arial"><a href="client.html#TorrentClient">TorrentClient</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Block">class <strong>Block</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Block">Block</a>(piece:&nbsp;int,&nbsp;offset:&nbsp;int,&nbsp;length:&nbsp;int)<br>
+&nbsp;<br>
+A&nbsp;single&nbsp;piece&nbsp;if&nbsp;made&nbsp;up&nbsp;of&nbsp;several&nbsp;small&nbsp;blocks.&nbsp;A&nbsp;block&nbsp;is&nbsp;the&nbsp;smallest&nbsp;atomic&nbsp;unit<br>
+transferred&nbsp;between&nbsp;peers.<br>
+&nbsp;<br>
+<a href="#Block">Block</a>&nbsp;size&nbsp;if&nbsp;usually&nbsp;size&nbsp;of&nbsp;REQUEST_SIZE,&nbsp;except&nbsp;for&nbsp;the&nbsp;last&nbsp;block&nbsp;in&nbsp;a&nbsp;piece&nbsp;which&nbsp;maybe<br>
+smaller&nbsp;than&nbsp;REQUEST_SIZE<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Block-__init__"><strong>__init__</strong></a>(self, piece: int, offset: int, length: int)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>Missing</strong> = 0</dl>
+
+<dl><dt><strong>Pending</strong> = 1</dl>
+
+<dl><dt><strong>Retrieved</strong> = 2</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PendingRequest">class <strong>PendingRequest</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#PendingRequest">PendingRequest</a>(block:&nbsp;client.<a href="#Block">Block</a>,&nbsp;added:&nbsp;int)&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+A&nbsp;class&nbsp;representing&nbsp;a&nbsp;request&nbsp;made&nbsp;to&nbsp;peer<br>
+block:&nbsp;Holds&nbsp;block&nbsp;<a href="builtins.html#object">object</a>&nbsp;of&nbsp;the&nbsp;request<br>
+added:&nbsp;Hold&nbsp;the&nbsp;timestamp&nbsp;of&nbsp;the&nbsp;request<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="PendingRequest-__eq__"><strong>__eq__</strong></a>(self, other)</dt></dl>
+
+<dl><dt><a name="PendingRequest-__init__"><strong>__init__</strong></a>(self, block: client.Block, added: int) -&gt; None</dt></dl>
+
+<dl><dt><a name="PendingRequest-__repr__"><strong>__repr__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__annotations__</strong> = {'added': &lt;class 'int'&gt;, 'block': &lt;class 'client.Block'&gt;}</dl>
+
+<dl><dt><strong>__dataclass_fields__</strong> = {'added': Field(name='added',type=&lt;class 'int'&gt;,default=&lt;d...rue,metadata=mappingproxy({}),_field_type=_FIELD), 'block': Field(name='block',type=&lt;class 'client.Block'&gt;,d...rue,metadata=mappingproxy({}),_field_type=_FIELD)}</dl>
+
+<dl><dt><strong>__dataclass_params__</strong> = _DataclassParams(init=True,repr=True,eq=True,order=False,unsafe_hash=False,frozen=False)</dl>
+
+<dl><dt><strong>__hash__</strong> = None</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Piece">class <strong>Piece</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Piece">Piece</a>(index:&nbsp;int,&nbsp;blocks:&nbsp;List[client.<a href="#Block">Block</a>]&nbsp;=&nbsp;None,&nbsp;hash_value=None)<br>
+&nbsp;<br>
+Torrent&nbsp;are&nbsp;made&nbsp;up&nbsp;of&nbsp;pieces&nbsp;which&nbsp;are&nbsp;made&nbsp;up&nbsp;of&nbsp;blocks.&nbsp;Each&nbsp;piece&nbsp;is&nbsp;of&nbsp;same<br>
+size&nbsp;except&nbsp;for&nbsp;the&nbsp;last&nbsp;piece&nbsp;which&nbsp;might&nbsp;be&nbsp;smaller.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Piece-__init__"><strong>__init__</strong></a>(self, index: int, blocks: List[client.Block] = None, hash_value=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="Piece-block_received"><strong>block_received</strong></a>(self, offset: int, data: bytes) -&gt; None</dt><dd><tt>Updates&nbsp;block&nbsp;information<br>
+:param&nbsp;offset:&nbsp;Offset&nbsp;of&nbsp;block&nbsp;inside&nbsp;the&nbsp;piece<br>
+:param&nbsp;data:&nbsp;<a href="#Block">Block</a>&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="Piece-is_complete"><strong>is_complete</strong></a>(self) -&gt; bool</dt><dd><tt>Returns&nbsp;if&nbsp;all&nbsp;blocks&nbsp;of&nbsp;piece&nbsp;are&nbsp;downloaded</tt></dd></dl>
+
+<dl><dt><a name="Piece-is_hash_matching"><strong>is_hash_matching</strong></a>(self) -&gt; bool</dt><dd><tt>Returns&nbsp;if&nbsp;the&nbsp;piece&nbsp;hash&nbsp;(SHA-1)&nbsp;is&nbsp;same&nbsp;as&nbsp;the&nbsp;hash&nbsp;received&nbsp;from&nbsp;torrent&nbsp;meta-info</tt></dd></dl>
+
+<dl><dt><a name="Piece-next_request"><strong>next_request</strong></a>(self) -&gt; Union[client.Block, NoneType]</dt><dd><tt>Get&nbsp;the&nbsp;next&nbsp;missing&nbsp;block&nbsp;of&nbsp;the&nbsp;piece</tt></dd></dl>
+
+<dl><dt><a name="Piece-reset"><strong>reset</strong></a>(self) -&gt; None</dt><dd><tt>Reset&nbsp;status&nbsp;of&nbsp;all&nbsp;blocks&nbsp;in&nbsp;a&nbsp;piece&nbsp;to&nbsp;missing&nbsp;irrespective&nbsp;of&nbsp;current&nbsp;state</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>data</strong></dt>
+<dd><tt>Returns&nbsp;data&nbsp;of&nbsp;the&nbsp;piece&nbsp;by&nbsp;concatenating&nbsp;all&nbsp;block&nbsp;data&nbsp;(sorting&nbsp;blocks<br>
+in&nbsp;order&nbsp;of&nbsp;their&nbsp;offset)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PieceManager">class <strong>PieceManager</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#PieceManager">PieceManager</a>(torrent)<br>
+&nbsp;<br>
+<a href="#PieceManager">PieceManager</a>&nbsp;is&nbsp;responsible&nbsp;for&nbsp;managing&nbsp;and&nbsp;keeping&nbsp;track&nbsp;of&nbsp;all&nbsp;the&nbsp;pieces&nbsp;of<br>
+the&nbsp;connected&nbsp;peers&nbsp;as&nbsp;well&nbsp;as&nbsp;other&nbsp;peers&nbsp;which&nbsp;might&nbsp;have&nbsp;been&nbsp;disconnected.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="PieceManager-__init__"><strong>__init__</strong></a>(self, torrent)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="PieceManager-add_peer"><strong>add_peer</strong></a>(self, peer_id, bitfield)</dt><dd><tt>Adds&nbsp;a&nbsp;peer&nbsp;with&nbsp;bitfield&nbsp;representing&nbsp;the&nbsp;pieces&nbsp;available&nbsp;with&nbsp;that&nbsp;peer</tt></dd></dl>
+
+<dl><dt><a name="PieceManager-block_received"><strong>block_received</strong></a>(self, peer_id, piece_index, block_offset, data)</dt><dd><tt>Callback&nbsp;function&nbsp;called&nbsp;when&nbsp;a&nbsp;block&nbsp;is&nbsp;received.<br>
+&nbsp;<br>
+After&nbsp;receiving&nbsp;a&nbsp;block,&nbsp;it&nbsp;checks&nbsp;if&nbsp;the&nbsp;piece&nbsp;is&nbsp;complete.&nbsp;If&nbsp;yes,<br>
+its&nbsp;hash&nbsp;is&nbsp;verified&nbsp;and&nbsp;the&nbsp;piece&nbsp;is&nbsp;written&nbsp;to&nbsp;disk&nbsp;and&nbsp;is&nbsp;added&nbsp;to<br>
+have_pieces&nbsp;list.&nbsp;If&nbsp;hash&nbsp;is&nbsp;not&nbsp;verified,&nbsp;the&nbsp;piece&nbsp;is&nbsp;reset&nbsp;for&nbsp;re-download</tt></dd></dl>
+
+<dl><dt><a name="PieceManager-close"><strong>close</strong></a>(self) -&gt; None</dt><dd><tt>Closes&nbsp;file&nbsp;descriptors&nbsp;opened&nbsp;by&nbsp;<a href="#PieceManager">PieceManager</a></tt></dd></dl>
+
+<dl><dt><a name="PieceManager-next_request"><strong>next_request</strong></a>(self, peer_id) -&gt; Union[client.Block, NoneType]</dt><dd><tt>Returns&nbsp;the&nbsp;block&nbsp;that&nbsp;is&nbsp;to&nbsp;be&nbsp;requested&nbsp;next&nbsp;for&nbsp;that&nbsp;peer.<br>
+1.&nbsp;Check&nbsp;if&nbsp;any&nbsp;expired&nbsp;block&nbsp;requests&nbsp;are&nbsp;present<br>
+2.&nbsp;Get&nbsp;the&nbsp;next&nbsp;block&nbsp;from&nbsp;ongoing&nbsp;piece&nbsp;of&nbsp;that&nbsp;peer<br>
+3.&nbsp;Get&nbsp;rarest&nbsp;piece&nbsp;the&nbsp;peer&nbsp;has&nbsp;and&nbsp;return&nbsp;its&nbsp;1st&nbsp;missing&nbsp;block<br>
+4.&nbsp;Get&nbsp;the&nbsp;next&nbsp;missing&nbsp;piece&nbsp;for&nbsp;the&nbsp;peer</tt></dd></dl>
+
+<dl><dt><a name="PieceManager-remove_peer"><strong>remove_peer</strong></a>(self, peer_id)</dt></dl>
+
+<dl><dt><a name="PieceManager-update_peer"><strong>update_peer</strong></a>(self, peer_id, index: int)</dt><dd><tt>Updates&nbsp;piece&nbsp;availability&nbsp;of&nbsp;the&nbsp;piece</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>bytes_downloaded</strong></dt>
+<dd><tt>Returns&nbsp;number&nbsp;of&nbsp;bytes&nbsp;downloaded</tt></dd>
+</dl>
+<dl><dt><strong>bytes_uploaded</strong></dt>
+<dd><tt>Not&nbsp;supported&nbsp;in&nbsp;this&nbsp;version&nbsp;of&nbsp;client</tt></dd>
+</dl>
+<dl><dt><strong>complete</strong></dt>
+<dd><tt>Checks&nbsp;if&nbsp;all&nbsp;pieces&nbsp;are&nbsp;received</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TorrentClient">class <strong>TorrentClient</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#TorrentClient">TorrentClient</a>(torrent)<br>
+&nbsp;<br>
+<a href="#TorrentClient">TorrentClient</a>&nbsp;is&nbsp;a&nbsp;local&nbsp;peer&nbsp;which&nbsp;is&nbsp;responsible&nbsp;for&nbsp;managing&nbsp;connections<br>
+to&nbsp;other&nbsp;peers&nbsp;to&nbsp;download&nbsp;and&nbsp;upload&nbsp;the&nbsp;data&nbsp;for&nbsp;the&nbsp;torrent.<br>
+&nbsp;<br>
+It&nbsp;makes&nbsp;periodic&nbsp;calls&nbsp;to&nbsp;the&nbsp;tracker&nbsp;registered&nbsp;to&nbsp;the&nbsp;torrent&nbsp;meta-info&nbsp;to&nbsp;get&nbsp;peer<br>
+information&nbsp;for&nbsp;the&nbsp;torrent.<br>
+&nbsp;<br>
+Each&nbsp;received&nbsp;peer&nbsp;is&nbsp;stored&nbsp;in&nbsp;the&nbsp;queue&nbsp;from&nbsp;which&nbsp;the&nbsp;PeerConnection&nbsp;objects&nbsp;consume<br>
+(maximum&nbsp;peer&nbsp;connections&nbsp;is&nbsp;defined&nbsp;by&nbsp;global&nbsp;MAX_PEER_CONNECTIONS&nbsp;variable).<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="TorrentClient-__init__"><strong>__init__</strong></a>(self, torrent)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="TorrentClient-start"><strong>start</strong></a>(self)</dt><dd><tt>Start&nbsp;downloading&nbsp;the&nbsp;torrent&nbsp;data&nbsp;by&nbsp;connecting&nbsp;to&nbsp;the&nbsp;tracker&nbsp;and&nbsp;starting<br>
+the&nbsp;workers</tt></dd></dl>
+
+<dl><dt><a name="TorrentClient-stop"><strong>stop</strong></a>(self)</dt><dd><tt>Stop&nbsp;download&nbsp;and&nbsp;send&nbsp;stop&nbsp;signal&nbsp;to&nbsp;all&nbsp;peer&nbsp;objects</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-sha1"><strong>sha1</strong></a> = openssl_sha1(...)</dt><dd><tt>Returns&nbsp;a&nbsp;sha1&nbsp;hash&nbsp;<a href="builtins.html#object">object</a>;&nbsp;optionally&nbsp;initialized&nbsp;with&nbsp;a&nbsp;string</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>List</strong> = typing.List<br>
+<strong>MAX_PEER_CONNECTIONS</strong> = 40<br>
+<strong>REQUEST_SIZE</strong> = 16384<br>
+<strong>Union</strong> = typing.Union<br>
+<strong>debug_logging_enabled</strong> = False<br>
+<strong>logging</strong> = &lt;Logger client (INFO)&gt;</td></tr></table>
+</body></html>

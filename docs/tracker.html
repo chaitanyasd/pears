@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module tracker</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>tracker</strong></big></big></font></td
+><td align=right valign=bottom
+></td></tr></table>
+    <p><tt>pears:&nbsp;A&nbsp;simple&nbsp;BitTorrent&nbsp;client<br>
+&nbsp;<br>
+MIT&nbsp;License<br>
+&nbsp;<br>
+Copyright&nbsp;(c)&nbsp;2020&nbsp;Chaitanya&nbsp;Deshpande<br>
+&nbsp;<br>
+Permission&nbsp;is&nbsp;hereby&nbsp;granted,&nbsp;free&nbsp;of&nbsp;charge,&nbsp;to&nbsp;any&nbsp;person&nbsp;obtaining&nbsp;a&nbsp;copy<br>
+of&nbsp;this&nbsp;software&nbsp;and&nbsp;associated&nbsp;documentation&nbsp;files&nbsp;(the&nbsp;"Software"),&nbsp;to&nbsp;deal<br>
+in&nbsp;the&nbsp;Software&nbsp;without&nbsp;restriction,&nbsp;including&nbsp;without&nbsp;limitation&nbsp;the&nbsp;rights<br>
+to&nbsp;use,&nbsp;copy,&nbsp;modify,&nbsp;merge,&nbsp;publish,&nbsp;distribute,&nbsp;sublicense,&nbsp;and/or&nbsp;sell<br>
+copies&nbsp;of&nbsp;the&nbsp;Software,&nbsp;and&nbsp;to&nbsp;permit&nbsp;persons&nbsp;to&nbsp;whom&nbsp;the&nbsp;Software&nbsp;is<br>
+furnished&nbsp;to&nbsp;do&nbsp;so,&nbsp;subject&nbsp;to&nbsp;the&nbsp;following&nbsp;conditions:<br>
+&nbsp;<br>
+The&nbsp;above&nbsp;copyright&nbsp;notice&nbsp;and&nbsp;this&nbsp;permission&nbsp;notice&nbsp;shall&nbsp;be&nbsp;included&nbsp;in&nbsp;all<br>
+copies&nbsp;or&nbsp;substantial&nbsp;portions&nbsp;of&nbsp;the&nbsp;Software.<br>
+&nbsp;<br>
+THE&nbsp;SOFTWARE&nbsp;IS&nbsp;PROVIDED&nbsp;"AS&nbsp;IS",&nbsp;WITHOUT&nbsp;WARRANTY&nbsp;OF&nbsp;ANY&nbsp;KIND,&nbsp;EXPRESS&nbsp;OR<br>
+IMPLIED,&nbsp;INCLUDING&nbsp;BUT&nbsp;NOT&nbsp;LIMITED&nbsp;TO&nbsp;THE&nbsp;WARRANTIES&nbsp;OF&nbsp;MERCHANTABILITY,<br>
+FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE&nbsp;AND&nbsp;NONINFRINGEMENT.&nbsp;IN&nbsp;NO&nbsp;EVENT&nbsp;SHALL&nbsp;THE<br>
+AUTHORS&nbsp;OR&nbsp;COPYRIGHT&nbsp;HOLDERS&nbsp;BE&nbsp;LIABLE&nbsp;FOR&nbsp;ANY&nbsp;CLAIM,&nbsp;DAMAGES&nbsp;OR&nbsp;OTHER<br>
+LIABILITY,&nbsp;WHETHER&nbsp;IN&nbsp;AN&nbsp;ACTION&nbsp;OF&nbsp;CONTRACT,&nbsp;TORT&nbsp;OR&nbsp;OTHERWISE,&nbsp;ARISING&nbsp;FROM,<br>
+OUT&nbsp;OF&nbsp;OR&nbsp;IN&nbsp;CONNECTION&nbsp;WITH&nbsp;THE&nbsp;SOFTWARE&nbsp;OR&nbsp;THE&nbsp;USE&nbsp;OR&nbsp;OTHER&nbsp;DEALINGS&nbsp;IN&nbsp;THE<br>
+SOFTWARE.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="aiohttp.html">aiohttp</a><br>
+</td><td width="25%" valign=top><a href="bencodepy.html">bencodepy</a><br>
+</td><td width="25%" valign=top><a href="random.html">random</a><br>
+</td><td width="25%" valign=top><a href="socket.html">socket</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="tracker.html#Tracker">Tracker</a>
+</font></dt><dt><font face="helvetica, arial"><a href="tracker.html#TrackerResponse">TrackerResponse</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Tracker">class <strong>Tracker</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Tracker">Tracker</a>(torrent)<br>
+&nbsp;<br>
+Responsible&nbsp;for&nbsp;connection&nbsp;management&nbsp;with&nbsp;<a href="#Tracker">Tracker</a><br>
+More&nbsp;info:&nbsp;https://wiki.theory.org/index.php/BitTorrentSpecification#Tracker_Response<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Tracker-__init__"><strong>__init__</strong></a>(self, torrent)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="Tracker-check_for_error"><strong>check_for_error</strong></a>(self, tracker_response)</dt></dl>
+
+<dl><dt><a name="Tracker-close"><strong>close</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="Tracker-connect"><strong>connect</strong></a>(self, first: bool = None, uploaded: int = 0, downloaded: int = 0)</dt><dd><tt>Make&nbsp;announcement&nbsp;call&nbsp;to&nbsp;the&nbsp;tracker&nbsp;with&nbsp;the&nbsp;current&nbsp;client&nbsp;torrent&nbsp;stats.<br>
+If&nbsp;successful&nbsp;we&nbsp;will&nbsp;receive&nbsp;a&nbsp;response&nbsp;containing&nbsp;the&nbsp;peer&nbsp;list&nbsp;to&nbsp;connect&nbsp;to<br>
+for&nbsp;downloading&nbsp;torrent&nbsp;data.<br>
+<a href="#TrackerResponse">TrackerResponse</a>&nbsp;wraps&nbsp;the&nbsp;received&nbsp;data&nbsp;to&nbsp;be&nbsp;used&nbsp;by&nbsp;client</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TrackerResponse">class <strong>TrackerResponse</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#TrackerResponse">TrackerResponse</a>(tracker_response)<br>
+&nbsp;<br>
+<a href="#TrackerResponse">TrackerResponse</a>&nbsp;holds&nbsp;the&nbsp;methods&nbsp;to&nbsp;act&nbsp;on&nbsp;the&nbsp;response&nbsp;we&nbsp;get&nbsp;from&nbsp;the&nbsp;tracker's<br>
+announce&nbsp;URL<br>
+More&nbsp;info:&nbsp;https://wiki.theory.org/BitTorrentSpecification#Tracker_Response<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="TrackerResponse-__init__"><strong>__init__</strong></a>(self, tracker_response)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="TrackerResponse-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>complete</strong></dt>
+<dd><tt>Number&nbsp;of&nbsp;peers&nbsp;with&nbsp;complete&nbsp;file&nbsp;i.e&nbsp;seeders</tt></dd>
+</dl>
+<dl><dt><strong>failure</strong></dt>
+</dl>
+<dl><dt><strong>incomplete</strong></dt>
+<dd><tt>Number&nbsp;of&nbsp;non-seeder&nbsp;peers&nbsp;i.e&nbsp;leechers</tt></dd>
+</dl>
+<dl><dt><strong>interval</strong></dt>
+<dd><tt>The&nbsp;interval&nbsp;in&nbsp;seconds&nbsp;that&nbsp;the&nbsp;client&nbsp;should&nbsp;wait&nbsp;before&nbsp;sending<br>
+periodic&nbsp;calls&nbsp;to&nbsp;the&nbsp;tracker</tt></dd>
+</dl>
+<dl><dt><strong>peers</strong></dt>
+<dd><tt>A&nbsp;list&nbsp;of&nbsp;tuples&nbsp;each&nbsp;representing&nbsp;a&nbsp;peer&nbsp;(ip,&nbsp;port)</tt></dd>
+</dl>
+<dl><dt><strong>warning</strong></dt>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>debug_logging_enabled</strong> = False<br>
+<strong>logging</strong> = &lt;Logger tracker (INFO)&gt;</td></tr></table>
+</body></html>

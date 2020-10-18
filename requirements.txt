@@ -1,3 +1,4 @@
 bencode.py
 aiohttp
 bitstring
+colorlog

@@ -1,23 +1,51 @@
+"""
+pears: A simple BitTorrent client
+
+MIT License
+
+Copyright (c) 2020 Chaitanya Deshpande
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import argparse
+import asyncio
 from collections import namedtuple
 from hashlib import sha1
-import asyncio
 
 import bencodepy
 
+from logger import init_logger, debug_logging_enabled
 from tracker import Tracker
-from logger import init_logger
+
+logging = init_logger(__name__, testing_mode=debug_logging_enabled)
 
 """
 Represents each file within the torrent
 """
 TorrentFile = namedtuple('TorrentFile', ['name', 'length'])
-logging = init_logger(__name__, testing_mode=False)
 
 
 class Torrent:
     """
     Represents torrent meta-data present in the .torrent file
+    More info: https://wiki.theory.org/BitTorrentSpecification#Metainfo_File_Structure
     """
 
     def __init__(self, torrent_path):
@@ -106,6 +134,9 @@ class Torrent:
 
     @property
     def output_file(self):
+        """
+        Returns the output filename that we will use to save the torrent data in
+        """
         logging.info("Torrent output file: {0}".format(self.meta_info[b"info"][b"name"].decode("utf-8")))
         return self.meta_info[b"info"][b"name"].decode("utf-8")
 

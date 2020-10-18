@@ -1,12 +1,40 @@
+"""
+pears: A simple BitTorrent client
+
+MIT License
+
+Copyright (c) 2020 Chaitanya Deshpande
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import asyncio
 import struct
 from asyncio import Queue
 from concurrent.futures import CancelledError
-from logger import init_logger
+
 import bitstring
 
+from logger import init_logger, debug_logging_enabled
+
 REQUEST_SIZE = 2 ** 14
-logging = init_logger(__name__, testing_mode=False)
+logging = init_logger(__name__, testing_mode=debug_logging_enabled)
 
 
 class ProtocolError(BaseException):
@@ -64,21 +92,21 @@ class PeerConnection:
 
     async def _start(self):
         while 'stopped' not in self.my_state:
-            # self.my_state = []
-            # self.peer_state = []
+            # testing these changes
+            self.my_state = []
+            self.peer_state = []
+            self.remote_id = None
 
             logging.info("Waiting for peer to be assigned")
             ip, port = await self.queue.get()
             logging.info('Got assigned peer with: {ip}'.format(ip=ip))
 
             try:
-                # TODO For some reason it does not seem to work to open a new
-                # connection if the first one drops (i.e. second loop).
                 self.reader, self.writer = await asyncio.open_connection(
                     ip, port)
                 logging.info('Connection open to peer: {ip}'.format(ip=ip))
 
-                # It's our responsibility to initiate the handshake.
+                # Initiate the handshake.
                 buffer = await self._handshake()
 
                 # TODO Add support for sending data
@@ -97,8 +125,7 @@ class PeerConnection:
                 # long as the connection is open and data is transmitted
                 async for message in PeerStreamIterator(self.reader, buffer):
                     if 'stopped' in self.my_state:
-                        break
-                        # self.cancel()
+                        self.cancel()
                     if type(message) is BitField:
                         self.piece_manager.add_peer(self.remote_id,
                                                     message.bitfield)
@@ -116,6 +143,8 @@ class PeerConnection:
                         self.piece_manager.update_peer(self.remote_id,
                                                        message.index)
                     elif type(message) is KeepAlive:
+                        logging.info("KeepAlive remote_id: {}".format(self.remote_id))
+                        await asyncio.sleep(1)
                         pass
                     elif type(message) is Piece:
                         self.my_state.remove('pending_request')
@@ -148,7 +177,7 @@ class PeerConnection:
                 logging.exception('An error occurred')
                 self.cancel()
                 raise e
-            self.cancel()
+        # self.cancel()
 
     def cancel(self):
         """
@@ -249,16 +278,20 @@ class PeerStreamIterator:
         # it and return the message. Until then keep reading from stream
         while True:
             try:
+                logging.debug("Waiting for data")
                 data = await self.reader.read(PeerStreamIterator.CHUNK_SIZE)
+                logging.debug("Got the data")
                 if data:
                     self.buffer += data
                     message = self.parse()
+                    logging.debug("Data :: {0}".format(message))
                     if message:
                         return message
                 else:
                     logging.debug('No data read from stream')
                     if self.buffer:
                         message = self.parse()
+                        logging.debug("Data :: {0}".format(message))
                         if message:
                             return message
                     raise StopAsyncIteration()
@@ -360,11 +393,10 @@ class PeerMessage:
     - The message ID is a single decimal byte.
     - The payload is message dependent.
 
-    NOTE: The Handshake messageis different in layout compared to the other
+    NOTE: The Handshake message is different in layout compared to the other
           messages.
 
-    Read more:
-        https://wiki.theory.org/BitTorrentSpecification#Messages
+    More info: https://wiki.theory.org/BitTorrentSpecification#Messages
 
     BitTorrent uses Big-Endian (Network Byte Order) for all messages, this is
     declared as the first character being '>' in all pack / unpack calls to the

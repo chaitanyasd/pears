@@ -1,4 +1,4 @@
-## Pears: A simple BitTorrent client
+# Pears: A simple BitTorrent client
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
@@ -9,6 +9,10 @@
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://opensource.org/licenses/MIT)
 
 ## How to run
+```
+pip install -r requirements.txt
+```
+
 ```
 python cli.py --file C:\Users\chaitanya\Documents\torrents\linuxmint-18-cinnamon-64bit.iso.torrent
 ```

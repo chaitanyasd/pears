@@ -11,6 +11,11 @@
 This is a very simple BitTorrent client that I implemented for fun and to learn more about P2P protocols like BitTorrent. On the way, I learned the following:
 1. Python's `asyncio` library for asyncronous programming
 2. How to structure a big project
+<br>
+
+Limitations - 
+1. Only supports downloading a torrent with single file
+2. Doesn't support seeding
 
 ## How to run
 ```
@@ -28,6 +33,11 @@ The main controller is the `TorrentClient`. It is responsible for the following:
 
 `Protocol` implementes the BitTorrent protocol. The unofficial specification can be found here: https://wiki.theory.org/BitTorrentSpecification
 <br>
+
+## Future work
+1. Support torrents with multiple files
+2. Support seeding aka uploading data to other peers
+3. Improve performance
 
 Read more about each module in `/docs`
 ## License
